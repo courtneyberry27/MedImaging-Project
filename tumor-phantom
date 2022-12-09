@@ -1,0 +1,60 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from PIL import Image as Im
+
+# dimension value - what changes for us
+N = 500
+PosA1 = 0
+PosA2 = 0
+LengthA1 = N
+LengthA2 = N
+waterB = 220
+waterC = 50
+T1B = 1500
+T2B = 200
+T1C = 200
+T2C = 10
+TR = 5
+TE = 1000
+SIA = .5
+img = np.zeros((N, N, 3))
+for i in range(LengthA1):
+    for j in range(LengthA2):
+        img[PosA1 + i][PosA2 + j] = SIA
+
+# make first ellipse representing the skull - change values to reflect new dimensions
+PosB1 = 250
+PosB2 = 250
+LengthB1 = 190
+LengthB2 = 170
+SIB = 0
+for i in range(N):
+    for j in range(N):
+        if((((i-PosB1)**2)/(LengthB1**2)) + (((j-PosB2)**2)/(LengthB2**2))) <= 0.8:
+            img[i][j] = SIB
+
+# make second ellipse representing brain - change values to reflect new dimensions
+PosC2 = 250
+LengthC1 = 185
+LengthC2 = 165
+SIC = .6
+for i in range(N):
+    for j in range(N):
+        if((((i-PosC1)**2)/(LengthC1**2)) + (((j-PosC2)**2)/(LengthC2**2))) <= 0.8:
+            img[i][j] = SIC
+
+# make third ellipse representing tumor - change values to reflect new dimensions
+PosD1 = 225
+PosD2 = 225
+LengthD1 = 50
+LengthD2 = 30
+SID = .9
+for i in range(N):
+    for j in range(N):
+        if((((i-PosD1)**2)/(LengthD1**2)) + (((j-PosD2)**2)/(LengthD2**2))) <= 0.8:
+            img[i][j] = SID
+
+plt.xticks([])
+plt.yticks([])
+plt.imshow(img)
+plt.show()
